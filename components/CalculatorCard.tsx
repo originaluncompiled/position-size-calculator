@@ -36,7 +36,7 @@ export default function CalculatorCard() {
 
   // asset name is actually a dropdown menu with different colours
   return (
-	<div className="flex flex-col items-center justify-center w-[90%] md:max-w-1/4 md:m-8 p-2 bg-neutral-200 border-2 border-neutral-400 rounded-2xl">
+	<div className="flex flex-col items-center justify-center w-[90%] max-h-[100%] md:max-w-1/4 md:m-8 p-2 bg-neutral-200 border-2 border-neutral-400 rounded-2xl">
       <div className="bg-slate-700 px-4 py-2 rounded-lg">
         <h2 className="text-amber-50 font-bold text-xl text-center">
           Lot Size Calculator
