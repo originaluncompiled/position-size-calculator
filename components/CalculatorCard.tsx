@@ -33,15 +33,13 @@ export default function CalculatorCard() {
     setLots(newLots);
   }
 
-  // asset name is actually a dropdown menu with different colours
-  return (
-    <div className="flex flex-col items-center justify-center w-1/4 p-2 m-8 bg-neutral-200 border-2 border-neutral-400 rounded-2xl">
-      <div className="bg-slate-700 px-4 py-2 rounded-lg">
-        <h2 className="text-amber-50 font-bold text-xl text-center">
-          Lot Size Calculator
-        </h2>
-      </div>
-      <Separator className="my-2 bg-neutral-300" />
+	// asset name is actually a dropdown menu with different colours
+	return (
+		<div className="flex flex-col items-center justify-center w-[90%] h-[75%] md:w-1/4 p-2 m-8 bg-neutral-200 border-2 border-neutral-400 rounded-2xl">
+			<div className="bg-slate-700 px-4 py-2 rounded-lg">
+				<h2 className="text-amber-50 font-bold text-xl text-center">Lot Size Calculator</h2>
+			</div>
+			<Separator className="my-2 bg-neutral-300" />
 
       <div className="flex-1 w-full h-full pt-2 px-2">
         <InputField
