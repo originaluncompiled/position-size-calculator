@@ -24,7 +24,7 @@ export default function InputField({
 
 	return (
 		<div className="flex flex-row w-full pb-2">
-			<Label htmlFor="entry-price" className="w-4/5 font-semibold pt-2">
+			<Label htmlFor={field} className="w-4/5 font-semibold pt-2">
 				{text}
 			</Label>
 
@@ -32,8 +32,8 @@ export default function InputField({
 				<p className="font-semibold pr-2 pt-2 text-black">{inputCharacter}</p>
 			)}
 			<Input
-				id="entry-price"
-				className="w-2/5 border-b-neutral-400 bg-neutral-300"
+				id={field}
+				className="w-3/5 md:w-2/5 border-b-neutral-400 bg-neutral-300"
 				placeholder={placeholder}
 				value={value}
 				onChange={handleChange}
