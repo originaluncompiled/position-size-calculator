@@ -117,6 +117,7 @@ export default function CryptoCalculatorCard() {
 									{capitalRequired.toLocaleString("en-US", {
 										minimumFractionDigits: 2,
 										maximumFractionDigits: 2,
+										useGrouping: false,
 									})}
 								</p>
 								<p className="pt-0.5 text-lg font-bold">&nbsp;@&nbsp;</p>
@@ -132,6 +133,7 @@ export default function CryptoCalculatorCard() {
 									{positionSize.toLocaleString("en-US", {
 										minimumFractionDigits: 2,
 										maximumFractionDigits: 2,
+										useGrouping: false,
 									})}
 								</p>
 								<p className="pt-0.5 text-lg font-bold">&nbsp;Position Size</p>
