@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 
@@ -18,8 +19,18 @@ export default function InputField({
 	field: string;
 	updateData: (field: string, newValue: string) => void;
 }) {
+	const [displayValue, setDisplayValue] = useState("");
+
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		updateData(field, e.target.value);
+		const inputValue = e.target.value.replace(/\s/g, ""); // Remove spaces
+
+		if (!/^\d*\.?\d*$/.test(inputValue)) return;
+
+		// Format for display
+		const formatted = inputValue.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+		setDisplayValue(formatted);
+
+		updateData(field, inputValue);
 	};
 
 	return (
@@ -35,7 +46,7 @@ export default function InputField({
 				id={field}
 				className="w-3/5 md:w-2/5 border-b-neutral-400 bg-neutral-300"
 				placeholder={placeholder}
-				value={value}
+				value={displayValue}
 				onChange={handleChange}
 			/>
 			{characterSide === "right" && (

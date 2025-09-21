@@ -16,6 +16,7 @@ export default function CryptoCalculatorCard() {
 	});
 	const [leverage, setLeverage] = useState(0);
 	const [capitalRequired, setCapitalRequired] = useState(0);
+	const [positionSize, setPositionSize] = useState(0);
 
 	function updateFormData(field: string, newValue: string): void {
 		setFormData((prevData) => ({
@@ -43,6 +44,7 @@ export default function CryptoCalculatorCard() {
 
 		setLeverage(newLeverage);
 		setCapitalRequired(capitalRequired);
+		setPositionSize(positionSize);
 	}
 
 	return (
@@ -108,15 +110,33 @@ export default function CryptoCalculatorCard() {
 
 				<div className="flex flex-col items-center justify-center">
 					{leverage > 0 && (
-						<div className="flex flex-row items-center justify-center mb-1.5">
-							<p className="text-xl font-extrabold text-emerald-700 underline">
-								${capitalRequired.toFixed(2)}!
-							</p>
-							<p className="pt-0.5 text-lg font-bold">&nbsp;@&nbsp;</p>
-							<p className="text-xl font-bold text-emerald-700">
-								{Math.floor(leverage)}x Leverage
-							</p>
-						</div>
+						<>
+							<div className="flex flex-row items-center justify-center mb-1.5">
+								<p className="text-xl font-extrabold text-emerald-700 underline">
+									$
+									{capitalRequired.toLocaleString("en-US", {
+										minimumFractionDigits: 2,
+										maximumFractionDigits: 2,
+									})}
+								</p>
+								<p className="pt-0.5 text-lg font-bold">&nbsp;@&nbsp;</p>
+								<p className="text-xl font-bold text-emerald-700">
+									{Math.floor(leverage)}x Leverage
+								</p>
+							</div>
+
+							<div className="flex flex-row items-center justify-center mb-1.5">
+								<p className="pt-0.5 text-lg font-bold">For a&nbsp;</p>
+								<p className="text-xl font-extrabold text-emerald-700 underline">
+									$
+									{capitalRequired.toLocaleString("en-US", {
+										minimumFractionDigits: 2,
+										maximumFractionDigits: 2,
+									})}
+								</p>
+								<p className="pt-0.5 text-lg font-bold">&nbsp;Position Size</p>
+							</div>
+						</>
 					)}
 					<Button className="font-bold" onClick={() => calculateRisk()}>
 						Calculate!
