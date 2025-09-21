@@ -47,6 +47,10 @@ export default function CryptoCalculatorCard() {
 		setPositionSize(positionSize);
 	}
 
+	async function copyToClipboard(text: string) {
+		await navigator.clipboard.writeText(text);
+	}
+
 	return (
 		<div className="flex flex-col items-center justify-center w-[90%] md:max-w-[25%] p-2 bg-neutral-200 border-2 border-neutral-400 rounded-2xl">
 			<div className="bg-slate-700 px-4 py-2 rounded-lg">
@@ -112,12 +116,14 @@ export default function CryptoCalculatorCard() {
 					{leverage > 0 && (
 						<>
 							<div className="flex flex-row items-center justify-center mb-1.5">
-								<p className="text-xl font-extrabold text-emerald-700 underline">
+								<p
+									onClick={() => copyToClipboard(positionSize.toFixed(2).toString())}
+									className="text-xl font-extrabold text-emerald-700 underline cursor-grab active:text-emerald-300 select-none"
+								>
 									$
 									{capitalRequired.toLocaleString("en-US", {
-										minimumFractionDigits: 2,
+										minimumFractionDigits: 0,
 										maximumFractionDigits: 2,
-										useGrouping: false,
 									})}
 								</p>
 								<p className="pt-0.5 text-lg font-bold">&nbsp;@&nbsp;</p>
@@ -128,12 +134,14 @@ export default function CryptoCalculatorCard() {
 
 							<div className="flex flex-row items-center justify-center mb-1.5">
 								<p className="pt-0.5 text-lg font-bold">For a&nbsp;</p>
-								<p className="text-xl font-extrabold text-emerald-700 underline">
+								<p
+									onClick={() => copyToClipboard(positionSize.toFixed(2).toString())}
+									className="text-xl font-extrabold text-emerald-700 underline cursor-grab active:text-emerald-300 select-none"
+								>
 									$
 									{positionSize.toLocaleString("en-US", {
-										minimumFractionDigits: 2,
+										minimumFractionDigits: 0,
 										maximumFractionDigits: 2,
-										useGrouping: false,
 									})}
 								</p>
 								<p className="pt-0.5 text-lg font-bold">&nbsp;Position Size</p>
