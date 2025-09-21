@@ -9,12 +9,13 @@ import { Separator } from "./ui/separator";
 export default function CryptoCalculatorCard() {
 	const [formData, setFormData] = useState({
 		riskAmount: "",
-		actualRisk: "",
 		entryPrice: "",
 		stopLossPrice: "",
+		maxLeverage: "",
 		direction: "long",
 	});
 	const [leverage, setLeverage] = useState(0);
+	const [capitalRequired, setCapitalRequired] = useState(0);
 
 	function updateFormData(field: string, newValue: string): void {
 		setFormData((prevData) => ({
@@ -24,28 +25,24 @@ export default function CryptoCalculatorCard() {
 	}
 
 	function calculateRisk() {
-		let riskMoveSize = 0;
+		const riskMoveSize = Math.abs(
+			(Number(formData.stopLossPrice) - Number(formData.entryPrice)) /
+			Number(formData.entryPrice),
+		);
 
-		if (formData.direction === "long") {
-			riskMoveSize =
-				(Number(formData.entryPrice) / Number(formData.stopLossPrice)) * 100 -
-				100;
-		} else {
-			riskMoveSize = // percentage difference in entry price to stop loss price
-				(Number(formData.stopLossPrice) / Number(formData.entryPrice)) * 100 -
-				100;
+		const positionSize = Number(formData.riskAmount) / riskMoveSize;
+
+		let newLeverage = positionSize / Number(formData.riskAmount);
+		let capitalRequired = Number(formData.riskAmount);
+
+		// 4. If leverage is too high, calculate how much capital you'd actually need
+		if (newLeverage > Number(formData.maxLeverage)) {
+			newLeverage = Number(formData.maxLeverage);
+			capitalRequired = positionSize / newLeverage;
 		}
 
-		let newLeverage = 100 / riskMoveSize || 0;
-		if (newLeverage < 1) {
-			newLeverage = 1;
-		}
-
-		const actualRisk = riskMoveSize/100 * Math.floor(newLeverage) * Number(formData.riskAmount);
-		console.log("size " + formData.riskAmount, "riskSize " + riskMoveSize, "lev " + newLeverage);
-
-		updateFormData('actualRisk', actualRisk.toString());
 		setLeverage(newLeverage);
+		setCapitalRequired(capitalRequired);
 	}
 
 	return (
@@ -79,6 +76,18 @@ export default function CryptoCalculatorCard() {
 				<Separator className="my-2 bg-neutral-300" />
 
 				<InputField
+					text="Max Leverage:"
+					placeholder="50"
+					inputCharacter="x"
+					characterSide="right"
+					value={formData.maxLeverage}
+					field="maxLeverage"
+					updateData={updateFormData}
+				/>
+
+				<Separator className="my-2 bg-neutral-300" />
+
+				<InputField
 					text="Entry Price:"
 					inputCharacter="$"
 					characterSide="left"
@@ -101,11 +110,11 @@ export default function CryptoCalculatorCard() {
 					{leverage > 0 && (
 						<div className="flex flex-row items-center justify-center mb-1.5">
 							<p className="text-xl font-extrabold text-emerald-700 underline">
-								{Math.floor(leverage)}x Leverage
+								${capitalRequired.toFixed(2)}!
 							</p>
-							<p className="pt-0.5 text-lg font-bold">&nbsp;to Risk&nbsp;</p>
+							<p className="pt-0.5 text-lg font-bold">&nbsp;@&nbsp;</p>
 							<p className="text-xl font-bold text-emerald-700">
-								${Number(formData.actualRisk).toFixed(2)}!
+								{Math.floor(leverage)}x Leverage
 							</p>
 						</div>
 					)}
