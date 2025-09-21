@@ -117,7 +117,7 @@ export default function CryptoCalculatorCard() {
 						<>
 							<div className="flex flex-row items-center justify-center mb-1.5">
 								<p
-									onClick={() => copyToClipboard(positionSize.toFixed(2).toString())}
+									onClick={() => copyToClipboard(capitalRequired.toFixed(2).toString())}
 									className="text-xl font-extrabold text-emerald-700 underline cursor-grab active:text-emerald-300 select-none"
 								>
 									$
