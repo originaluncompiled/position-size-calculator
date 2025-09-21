@@ -129,7 +129,7 @@ export default function CryptoCalculatorCard() {
 								<p className="pt-0.5 text-lg font-bold">For a&nbsp;</p>
 								<p className="text-xl font-extrabold text-emerald-700 underline">
 									$
-									{capitalRequired.toLocaleString("en-US", {
+									{positionSize.toLocaleString("en-US", {
 										minimumFractionDigits: 2,
 										maximumFractionDigits: 2,
 									})}
