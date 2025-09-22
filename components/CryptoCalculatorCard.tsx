@@ -27,7 +27,7 @@ export default function CryptoCalculatorCard() {
 
 	function calculateRisk() {
 		const riskMoveSize = Math.abs(
-			(Number(formData.stopLossPrice) - Number(formData.entryPrice)) /
+			(Number(formData.entryPrice) - Number(formData.stopLossPrice) * 1.03) / //add a 0.03% buffer to account for slippage/spreads
 			Number(formData.entryPrice),
 		);
 
