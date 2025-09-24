@@ -27,11 +27,11 @@ export default function CryptoCalculatorCard() {
 
 	function calculateRisk() {
 		const riskMoveSize = Math.abs(
-			(Number(formData.entryPrice) - Number(formData.stopLossPrice) * 1.03) / //add a 0.03% buffer to account for slippage/spreads
+			(Number(formData.entryPrice) - Number(formData.stopLossPrice) * (0.03 / 100)) / //add a 0.03% buffer to account for slippage/spreads
 			Number(formData.entryPrice),
 		);
 
-		const positionSize = Number(formData.riskAmount) / riskMoveSize;
+		const positionSize = (Number(formData.riskAmount) * (0.03 / 100)) / riskMoveSize;
 
 		let newLeverage = positionSize / Number(formData.riskAmount);
 		let capitalRequired = Number(formData.riskAmount);
